@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Zakim Bridge Infographic</title>
+    <style>
+        :root {
+            --accent-color: #d4a373;
+            --bg-overlay: rgba(0, 0, 0, 0.7);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f1de;
+        }
+
+        /* Container for the image and icons */
+        .infographic-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .infographic-container img {
+            width: 100%;
+            display: block;
+        }
+
+        /* The clickable icons */
+        .hotspot {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border: 2px solid white;
+        }
+
+        .hotspot:hover {
+            transform: scale(1.2);
+            background-color: #bc8a5f;
+        }
+
+        /* Position icons based on your image layout */
+        #spot1 { top: 30%; left: 5%; }
+        #spot2 { top: 45%; left: 5%; }
+        #spot3 { top: 60%; left: 5%; }
+        #spot4 { top: 75%; left: 5%; }
+
+        /* The Pop-up Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-overlay);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="infographic-container">
+    <img src="zakimbridge.png" alt="Zakim Bridge">
+
+    <div class="hotspot" id="spot1" onclick="showFact('The Big Dig Connection', 'The bridge and connecting tunnel were built as part of the Big Dig, the largest highway construction project in the United States.')">⚙️</div>
+    <div class="hotspot" id="spot2" onclick="showFact('Civil Rights Legacy', 'The bridge\'s full name commemorates Boston area leader and civil rights activist Leonard P. Zakim.')">🕯️</div>
+    <div class="hotspot" id="spot3" onclick="showFact('City Lights', 'The bridge can be lit with any multitude of colors to celebrate health awareness or Boston Sports teams.')">💡</div>
+    <div class="hotspot" id="spot4" onclick="showFact('Boston Icon', 'It is a Boston icon constantly found in souvenirs and other types of city memorabilia.')">🛍️</div>
+</div>
+
+<div class="modal" id="factModal" onclick="closeFact()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h2 id="factTitle">Fact Title</h2>
+        <p id="factText">Fact text goes here.</p>
+        <button class="close-btn" onclick="closeFact()">Close</button>
+    </div>
+</div>
+
+<script>
+    function showFact(title, text) {
+        document.getElementById('factTitle').innerText = title;
+        document.getElementById('factText').innerText = text;
+        document.getElementById('factModal').classList.add('active');
+    }
+
+    function closeFact() {
+        document.getElementById('factModal').classList.remove('active');
+    }
+</script>
+
+</body>
+</html>
